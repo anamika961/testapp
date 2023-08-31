@@ -5,7 +5,7 @@ const express = require("express");
 // const jwt = require("jsonwebtoken");
 // const isAuthenticate = require("../middleware/authcheck");
 // const generateAccessToken = require("../helper/generateAccessToken");
-// const User = require("../models/user");
+const User = require("../models/user");
 //const FriendRequest = require("../models/friend_request");
 const UserRoute = express.Router();
 
@@ -15,24 +15,7 @@ const UserRoute = express.Router();
 
 UserRoute.get("/list", async(req,res)=>{
     try{
-        let UserData = await User.find({}).populate([
-            {
-                path:"user_state",
-                select:"name"
-            },
-            {
-                path:"user_city",
-                select:"name"
-            },
-            {
-                path:"user_area",
-                select:"name"
-            },
-            {
-                path:"user_constituency",
-                select:"name"
-            }
-        ]).sort({_id:-1});
+        let UserData = await User.find({}).sort({_id:-1});
 
         message = {
             error:false,
@@ -44,7 +27,7 @@ UserRoute.get("/list", async(req,res)=>{
         message = {
             error:true,
             message:"Operation Failed",
-            data:err
+            data:err.toString()
         };
         res.status(200).send(message);
     }
