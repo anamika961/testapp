@@ -13,12 +13,12 @@ const fs = require('fs');
 
 const port = process.env.PORT || 10000;
 
-//require("./db/connection");
+require("./db/connection");
 
-// const routes = require("./routing");
+const routes = require("./routing");
 
 
-// app.use("/api", routes);
+app.use("/api", routes);
 
 app.get("/", async (req, res) => {
     
